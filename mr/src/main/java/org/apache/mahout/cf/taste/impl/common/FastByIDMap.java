@@ -101,6 +101,7 @@ public final class FastByIDMap<V> implements Serializable, Cloneable {
    */
   private int find(long key) {
     int theHashCode = (int) key & 0x7FFFFFFF; // make sure it's positive
+    // False positive, keys is a setter
     long[] keys = this.keys;
     int hashSize = keys.length;
     int jump = 1 + theHashCode % (hashSize - 2);
