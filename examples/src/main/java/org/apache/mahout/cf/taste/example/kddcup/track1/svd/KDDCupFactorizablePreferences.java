@@ -96,7 +96,7 @@ public class KDDCupFactorizablePreferences implements FactorizablePreferences {
 
     @Override
     public long nextLong() {
-      return currentValue++;
+      return ++currentValue;
     }
 
     @Override
