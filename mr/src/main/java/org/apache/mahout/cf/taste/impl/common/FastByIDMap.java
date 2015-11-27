@@ -119,14 +119,14 @@ public final class FastByIDMap<V> implements Serializable, Cloneable {
    */
   private int findForAdd(long key) {
     int theHashCode = (int) key & 0x7FFFFFFF; // make sure it's positive
-    long[] keys = this.keys;
-    int hashSize = keys.length;
+    long[] keystmp = this.keys;
+    int hashSize = keystmp.length;
     int jump = 1 + theHashCode % (hashSize - 2);
     int index = theHashCode % hashSize;
-    long currentKey = keys[index];
+    long currentKey = keystmp[index];
     while (currentKey != NULL && currentKey != REMOVED && key != currentKey) {
       index -= index < jump ? jump - hashSize : jump;
-      currentKey = keys[index];
+      currentKey = keystmp[index];
     }
     if (currentKey != REMOVED) {
       return index;
@@ -135,7 +135,7 @@ public final class FastByIDMap<V> implements Serializable, Cloneable {
     int addIndex = index;
     while (currentKey != NULL && key != currentKey) {
       index -= index < jump ? jump - hashSize : jump;
-      currentKey = keys[index];
+      currentKey = keystmp[index];
     }
     return key == currentKey ? index : addIndex;
   }
